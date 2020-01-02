@@ -1,0 +1,23 @@
+{
+  "name": "movie_api",
+  "version": "1.0.0",
+  "description": "movie application",
+  "main": "index.js",
+  "scripts": {
+    "test": "successful load"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crypto-maven/movie_api.git"
+  },
+  "keywords": [
+    "movies",
+    "api"
+  ],
+  "author": "crypto-maven",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crypto-maven/movie_api/issues"
+  },
+  "homepage": "https://github.com/crypto-maven/movie_api#readme"
+}
