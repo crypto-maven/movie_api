@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 
-morgan = require('morgan');
+const morgan = require('morgan');
+app.use(morgan('common'));
 
 let topMovies = [
 	{
@@ -63,8 +64,6 @@ app.get('/movies', function(req, res) {
 app.listen(8080, () => console.log('Your app is listening on port 8080.'));
 
 // Morgan Middleware
-
-app.use(morgan('common'));
 
 app.get('/', function(req, res) {
 	res.send('Welcome to my app!');
