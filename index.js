@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-
 const morgan = require('morgan');
+const Movie = require('./movies';)
 app.use(morgan('common'));
 
 let topMovies = [
@@ -16,34 +16,6 @@ let topMovies = [
 	{
 		title: 'Tekkonkinkreet',
 		director: 'Michael Arias'
-	},
-	{
-		title: 'Shaolin Soccer',
-		director: 'Stephen Chow'
-	},
-	{
-		title: 'Dr.Strangelove',
-		director: 'Stanley Kubrick'
-	},
-	{
-		title: '2 Days in the Valley',
-		director: 'John Herzfeld'
-	},
-	{
-		title: 'Very Bad Things',
-		director: 'Peter Berg'
-	},
-	{
-		title: 'Garden State',
-		director: 'Zach Braff'
-	},
-	{
-		title: 'Sweeney Todd',
-		director: 'Tim Burton'
-	},
-	{
-		title: 'Big Fish',
-		director: 'Tim Burton'
 	}
 ];
 
@@ -53,10 +25,11 @@ app.use(express.static('public'));
 
 // Welcome message
 app.get('/movies', (req, res) => {
-	res.send('Welcome to a list of 10 Movies!');
+	 console.log(Movie);
+	 res.json(Movie);
 });
 
-app.get('/movies', function(req, res) {
+app.get('/', function(req, res) {
 	res.json(topMovies);
 });
 
