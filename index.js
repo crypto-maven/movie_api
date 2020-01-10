@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const Movie = require('./movies';)
+const Movie = require('./movies');
 app.use(morgan('common'));
 
 let topMovies = [
@@ -25,16 +25,8 @@ app.use(express.static('public'));
 
 // Welcome message
 app.get('/movies', (req, res) => {
-	 console.log(Movie);
-	 res.json(Movie);
-});
-
-app.get('/', function(req, res) {
 	res.json(topMovies);
 });
-
-// listen for requests
-app.listen(8080, () => console.log('Your app is listening on port 8080.'));
 
 // Morgan Middleware
 
@@ -45,8 +37,6 @@ app.get('/secreturl', function(req, res) {
 	res.send('This is a secret url with super top-secret content.');
 });
 
-app.listen(8080);
-
 // error handling function morgan
 
 app.use(function(err, req, res, next) {
@@ -54,3 +44,5 @@ app.use(function(err, req, res, next) {
 	res.status(500).send('Unexpected Error!');
 	next();
 });
+// listen for requests
+app.listen(8080, () => console.log('Your app is listening on port 8080.'));
