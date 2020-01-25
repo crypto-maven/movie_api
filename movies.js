@@ -1,4 +1,4 @@
-module.exports.movie = [
+module.exports.movies = [
 	{
 		title: 'The Imaginarium of Doctor Parnassus',
 		director: 'Terry Gilliam'
