@@ -1,4 +1,3 @@
-
 // const movies = require('./movies,js');
 
 const express = require('express'),
@@ -47,17 +46,17 @@ let Genres = [
 		name: 'Drama',
 		description:
 			'Drama is a genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone'
-	}
+	},
 	{
 		name: 'Animation',
 		description:
 			'Animated film is a collection of illustrations that are photographed frame-by-frame and then played in a quick succession. Since its inception, animation has had a creative and imaginative tendency.'
-	}
+	},
 	{
 		name: 'Comedy',
 		description:
 			'Animated film is a collection of illustrations that are photographed frame-by-frame and then played in a quick succession. Since its inception, animation has had a creative and imaginative tendency.'
-	}
+	},
 	{
 		name: 'Black Comedy',
 		description:
@@ -85,8 +84,7 @@ let Movies = [
 			'Based on the autobiographical book The Pianist, a Holocaust memoir by the Polish-Jewish pianist and composer Władysław Szpilman, a Holocaust survivor.',
 		genre: 'Drama',
 		director: 'Roman Polanski',
-		imageURL:
-			'',
+		imageURL: '',
 		featured: 'false'
 	},
 	{
@@ -94,11 +92,10 @@ let Movies = [
 		title: 'Tekkonkinkreet',
 		year: '2007',
 		description:
-			"The tale of a pair of orphans who attempt to prevent the Yakuza and their assorted violent and corrupt allies from taking over their city.",
+			'The tale of a pair of orphans who attempt to prevent the Yakuza and their assorted violent and corrupt allies from taking over their city.',
 		genre: 'Animation',
 		director: 'Michael Arias',
-		imageURL:
-			'',
+		imageURL: '',
 		featured: 'false'
 	},
 	{
@@ -106,11 +103,10 @@ let Movies = [
 		title: 'Shaolin Soccer',
 		year: '2001',
 		description:
-			'A former Shaolin monk reunites his five brothers, years after their master\'s death, to apply their superhuman martial arts skills to play football and bring Shaolin kung fu to the masses.',
+			"A former Shaolin monk reunites his five brothers, years after their master's death, to apply their superhuman martial arts skills to play football and bring Shaolin kung fu to the masses.",
 		genre: 'Comedy',
 		director: 'Stephen Chow',
-		imageURL:
-			'',
+		imageURL: '',
 		featured: 'false'
 	},
 	{
@@ -121,8 +117,7 @@ let Movies = [
 			'The story concerns an unhinged United States Air Force general who orders a first strike nuclear attack on the Soviet Union. It follows the President of the United States, his advisors, the Joint Chiefs of Staff, and a Royal Air Force (RAF) officer as they try to recall the bombers to prevent a nuclear apocalypse.',
 		genre: 'Black Comedy',
 		director: 'Stanley Kubrick',
-		imageURL:
-			'',
+		imageURL: '',
 		featured: 'false'
 	},
 	{
@@ -190,8 +185,6 @@ app.get('/', (req, res) => {
 	res.redirect('/index.html');
 });
 
-
-
 // Get the list of data about all Movies
 app.get('/movies', (req, res) => {
 	res.json(Movies);
@@ -208,8 +201,6 @@ app.get('/movies/:title', (req, res) => {
 	);
 });
 
-/
-
 // Get the data about a single Genre, by name
 app.get('/genres/:name', (req, res) => {
 	res.json(
@@ -219,7 +210,6 @@ app.get('/genres/:name', (req, res) => {
 	);
 });
 
-
 // Get the data about a single Director, by name
 app.get('/directors/:name', (req, res) => {
 	res.json(
@@ -228,8 +218,6 @@ app.get('/directors/:name', (req, res) => {
 		})
 	);
 });
-
-
 
 // Get the list of data about all Movies
 app.get('/users', (req, res) => {
@@ -303,8 +291,6 @@ app.put('/users/:id', (req, res) => {
 		);
 	}
 });
-
-
 
 // add a favorite Movie to a User.
 app.post('/users/:id/:movie_id', (req, res) => {
