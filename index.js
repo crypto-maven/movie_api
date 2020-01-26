@@ -12,9 +12,9 @@ let Users = [
 		id: '0',
 		name: 'nicole',
 		username: 'villa',
-		password: '',
-		email: '',
-		birthday: '',
+		password: 'G3neR1cP@55',
+		email: 'genericemail@gmail.com',
+		birthday: '09-16-1992',
 		favorites: ['3']
 	}
 ];
