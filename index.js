@@ -1,4 +1,4 @@
-// const movies = require('./movies,js');
+const movies = require('./movies.js');
 
 const express = require('express'),
 	morgan = require('morgan'),
