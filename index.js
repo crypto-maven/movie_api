@@ -1,3 +1,14 @@
+// Integrating Mongoose with a REST API
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+
+// code from previous exercises
 const movies = require('./movies.js');
 
 const express = require('express'),
@@ -45,10 +56,52 @@ app.get('/users', (req, res) => {
 	res.send('Successful GET all users');
 });
 
-// Adds data for a new user to the list of Users.
-app.post('/users', (req, res) => {
-	res.send('Successfully created a new user');
-});
+//Add a user
+/* We’ll expect JSON in this format
+{
+ ID : Integer,
+ Username : String,
+ Password : String,
+ Email : String,
+ Birthday : Date
+}*/
+app.post('/users', function(req, res) {
+	Users.findOne({ Username : req.body.Username })
+	.then(function(user) {
+	  if (user) {
+		return res.status(400).send(req.body.Username + "already exists");
+	  } else {
+		Users
+		.create({
+		  Username: req.body.Username,
+		  Password: req.body.Password,
+		  Email: req.body.Email,
+		  Birthday: req.body.Birthday
+		})
+		.then(function(user) {res.status(201).json(user) })
+		.catch(function(error) {
+		  console.error(error);
+		  res.status(500).send("Error: " + error);
+		})
+	  }
+	}).catch(function(error) {
+	  console.error(error);
+	  res.status(500).send("Error: " + error);
+	});
+  });
+
+// Get all users
+app.get('/users', function(req, res) {
+
+	Users.find()
+	.then(function(users) {
+	  res.status(201).json(users)
+	})
+	.catch(function(err) {
+	  console.error(err);
+	  res.status(500).send("Error: " + err);
+	});
+  });
 
 // Deletes a user from the list by ID
 app.delete('/users/:id', (req, res) => {
