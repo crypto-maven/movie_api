@@ -103,15 +103,25 @@ app.get('/users', function(req, res) {
 	});
   });
 
-// Deletes a user from the list by ID
-app.delete('/users/:id', (req, res) => {
-	res.send('successfully delete a new user');
-});
 
-// Get a user from the list by ID
-// app.get('/users/:id', (req, res) => {
-// 	res.send('Successful GET user by ID');
-// });
+
+// Delete a user by username
+app.delete('/users/:Username', function(req, res) {
+	Users.findOneAndRemove({ Username: req.params.Username })
+	.then(function(user) {
+	  if (!user) {
+		res.status(400).send(req.params.Username + " was not found");
+	  } else {
+		res.status(200).send(req.params.Username + " was deleted.");
+	  }
+	})
+	.catch(function(err) {
+	  console.error(err);
+	  res.status(500).send("Error: " + err);
+	});
+  });
+
+
 
 // Get a user by username
 app.get('/users/:Username', function(req, res) {
@@ -160,10 +170,7 @@ app.put('/users/:Username', function(req, res) {
 	})
   });
 
-// // add a favorite Movie to a User.
-// app.post('/users/:id/:movie_id', (req, res) => {
-// 	res.send('Successfully add a favorite movie to a user');
-// });
+
 
 // Add a movie to a user's list of favorites
 app.post('/users/:Username/Movies/:MovieID', function(req, res) {
