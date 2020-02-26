@@ -109,14 +109,56 @@ app.delete('/users/:id', (req, res) => {
 });
 
 // Get a user from the list by ID
-app.get('/users/:id', (req, res) => {
-	res.send('Successful GET user by ID');
-});
+// app.get('/users/:id', (req, res) => {
+// 	res.send('Successful GET user by ID');
+// });
 
-// Update the info of a user by id
-app.put('/users/:id', (req, res) => {
-	res.send('Successful update a user');
-});
+// Get a user by username
+app.get('/users/:Username', function(req, res) {
+	Users.findOne({ Username : req.params.Username })
+	.then(function(user) {
+	  res.json(user)
+	})
+	.catch(function(err) {
+	  console.error(err);
+	  res.status(500).send("Error: " + err);
+	});
+  });
+
+// // Update the info of a user by id
+// app.put('/users/:id', (req, res) => {
+// 	res.send('Successful update a user');
+// });
+
+// Update a user's info, by username
+/* We’ll expect JSON in this format
+{
+  Username: String,
+  (required)
+  Password: String,
+  (required)
+  Email: String,
+  (required)
+  Birthday: Date
+}*/
+app.put('/users/:Username', function(req, res) {
+	Users.findOneAndUpdate({ Username : req.params.Username }, { $set :
+	{
+	  Username : req.body.Username,
+	  Password : req.body.Password,
+	  Email : req.body.Email,
+	  Birthday : req.body.Birthday
+	}},
+	{ new : true }, // This line makes sure that the updated document is returned
+	function(err, updatedUser) {
+	  if(err) {
+		console.error(err);
+		res.status(500).send("Error: " +err);
+	  } else {
+		res.json(updatedUser)
+	  }
+	})
+  });
 
 // add a favorite Movie to a User.
 app.post('/users/:id/:movie_id', (req, res) => {
