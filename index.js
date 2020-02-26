@@ -160,10 +160,26 @@ app.put('/users/:Username', function(req, res) {
 	})
   });
 
-// add a favorite Movie to a User.
-app.post('/users/:id/:movie_id', (req, res) => {
-	res.send('Successfully add a favorite movie to a user');
-});
+// // add a favorite Movie to a User.
+// app.post('/users/:id/:movie_id', (req, res) => {
+// 	res.send('Successfully add a favorite movie to a user');
+// });
+
+// Add a movie to a user's list of favorites
+app.post('/users/:Username/Movies/:MovieID', function(req, res) {
+	Users.findOneAndUpdate({ Username : req.params.Username }, {
+	  $push : { FavoriteMovies : req.params.MovieID }
+	},
+	{ new : true }, // This line makes sure that the updated document is returned
+	function(err, updatedUser) {
+	  if (err) {
+		console.error(err);
+		res.status(500).send("Error: " + err);
+	  } else {
+		res.json(updatedUser)
+	  }
+	})
+  });
 
 // remove a favorite Movie from a User.
 app.delete('/users/:id/:movie_id', (req, res) => {
