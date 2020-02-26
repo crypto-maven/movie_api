@@ -6,7 +6,7 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+let mongoose = mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
 // code from previous exercises
 const movies = require('./movies.js');
