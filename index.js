@@ -6,7 +6,6 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 
-let mongoose = mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
 // code from previous exercises
 const movies = require('./movies.js');
@@ -31,27 +30,58 @@ app.get('/', (req, res) => {
 	res.redirect('/index.html');
 });
 
+// start movies scripts
+
 // Get the list of data about all Movies
 app.get('/movies', (req, res) => {
-	res.send('Successful GET request returning data on all the movies');
+	Movies.find(){
+		.then(function(movies){
+			res.status(201).json(movies)
+		})
+		.catch(function(error);
+		res.status(500).send("Error + err");
+		)};
 });
 
 // Get the data about a single Movie, by title
 app.get('/movies/:title', (req, res) => {
-	res.send('Successful GET a movie by title');
+	Movies.find({Title: req.params.Title})
+	.then(function(movies){
+		res.status(201).json(movies)
+	})
+	.catch(function(error){
+		console.error(error);
+		res.status(500).send("Error" + err);
+	});
 });
 
 // Get the data about a single Genre, by name
 app.get('/genres/:name', (req, res) => {
-	res.send('Successful GET a genre by name');
+	Movies.findOne({Title: req.params.Title})
+	.then(function(movie){
+		res.status(201).send(movie.Genre.Name + ' : ' + movie.Genre.Description)
+	})
+	.catch(function(error){
+		console.error(error);
+		res.status(500).send("Error" + error);
+	});
 });
 
 // Get the data about a single Director, by name
 app.get('/directors/:name', (req, res) => {
-	res.send('Successful GET director by name');
+	Movies.findOne({"Director.Name" : req.params.Name})
+	.then(function(movies){
+		res.status(201).json(movies.Director)
+	})
+	.catch(function(error){
+		console.error(error);
+		res.status(500).send("Error" + err);
+	});
 });
 
-// Get the list of data about all Movies
+// start users scripts
+
+// Get the list of data about all Users
 app.get('/users', (req, res) => {
 	res.send('Successful GET all users');
 });

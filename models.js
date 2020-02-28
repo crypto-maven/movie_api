@@ -1,4 +1,5 @@
-var movieSchema = mongoose.Schema({
+const mongoose = require('mongoose');
+ movieSchema = mongoose.Schema({
     Title: {type: String, required: true},
     Description: {type: String, required: true},
     Genre: {
