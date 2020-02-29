@@ -34,13 +34,14 @@ app.get('/', (req, res) => {
 
 // Get the list of data about all Movies
 app.get('/movies', (req, res) => {
-	Movies.find(){
-		.then(function(movies){
-			res.status(201).json(movies)
-		})
-		.catch(function(error);
-		res.status(500).send("Error + err");
-		)};
+	Movies.find()
+	.then(function(movies){
+	   res.status(201).json(movies)   /*Returns All Movies*/
+   })
+	.catch(function(error){
+	   console.error(error);
+	   res.status(500).send("Error" + err);
+   }); 
 });
 
 // Get the data about a single Movie, by title
