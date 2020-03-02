@@ -47,19 +47,19 @@ app.get('/movies', (req, res) => {
 
 // Get the data about a single Movie, by title
 app.get('/movies/:title', (req, res) => {
-	Movies.find({Title: req.params.Title})
-	.then(function(movies){
-		res.status(201).json(movies)
-	})
-	.catch(function(error){
-		console.error(error);
-		res.status(500).send("Error" + err);
-	});
+ Movies.findOne({ Title : req.params.title })
+  .then(function(movie) {
+    res.json(movie)
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error: " + err);
+  });
 });
 
 // Get the data about a single Genre, by name
 app.get('/genres/:name', (req, res) => {
-	Movies.findOne({Title: req.params.Title})
+	Movies.findOne({Title: req.params.title})
 	.then(function(movie){
 		res.status(201).send(movie.Genre.Name + ' : ' + movie.Genre.Description)
 	})
@@ -71,21 +71,28 @@ app.get('/genres/:name', (req, res) => {
 
 // Get the data about a single Director, by name
 app.get('/directors/:name', (req, res) => {
-	Movies.findOne({"Director.Name" : req.params.Name})
-	.then(function(movies){
-		res.status(201).json(movies.Director)
-	})
-	.catch(function(error){
-		console.error(error);
-		res.status(500).send("Error" + err);
-	});
+    Movies.findOne({ Director: req.params.name })
+    .then(function(movies){
+        res.status(201).json(movies)
+    })
+    .catch(function(err){
+        console.error(err);
+        res.status(500).send("Error" + err);
+    });
 });
 
 // start users scripts
 
 // Get the list of data about all Users
 app.get('/users', (req, res) => {
-	res.send('Successful GET all users');
+	Users.find()
+  .then(function(users) {
+    res.status(201).json(users)
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error: " + err);
+  });
 });
 
 //Add a user
@@ -235,6 +242,6 @@ app.use((err, req, res, next) => {
 	res.status(500).send('Something broke!');
 });
 
-app.listen(8080, () => {
-	console.log('App is listening on port 8080');
+app.listen(9999, () => {
+	console.log('App is listening on port 9999');
 });
