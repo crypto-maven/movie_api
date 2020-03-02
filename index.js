@@ -70,16 +70,28 @@ app.get('/genres/:name', (req, res) => {
 });
 
 // Get the data about a single Director, by name
-app.get('/directors/:name', (req, res) => {
-    Movies.findOne({ Director: req.params.name })
-    .then(function(movies){
-        res.status(201).json(movies)
-    })
-    .catch(function(err){
-        console.error(err);
-        res.status(500).send("Error" + err);
-    });
-});
+// app.get('/director/:name', (req, res) => {
+//     Movies.findOne({ Director: req.params.name })
+//     .then(function(movies){
+//         res.status(201).json(movies)
+//     })
+//     .catch(function(err){
+//         console.error(err);
+//         res.status(500).send("Error" + err);
+//     });
+// });
+
+app.get("/movies/directors/:Name", (req, res) => {
+	  Movies.findOne({ "Director.Name": req.params.Name })
+		.then(function(movies) {
+		  res.json(movies.Director);
+		})
+		.catch(function(err) {
+		  console.error(err);
+		  res.status(500).send("Error: " + err);
+		});
+	}
+  );
 
 // start users scripts
 
