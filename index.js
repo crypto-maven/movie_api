@@ -25,6 +25,16 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
+// auth 
+var auth = require('./auth')(app);
+
+// require passport
+const passport = require('passport');
+require('./passport');
+
+// require from passport
+var jwtSecret = "your_jwt_secret"; // This has to be the same key used in the JWTStrategy
+var jwt = require("jsonwebtoken");
 
 // GET requests
 app.get('/', (req, res) => {
@@ -34,16 +44,26 @@ app.get('/', (req, res) => {
 // start movies scripts
 
 // Get the list of data about all Movies
-app.get('/movies', (req, res) => {
+// app.get('/movies', (req, res) => {
+// 	Movies.find()
+// 	.then(function(movies){
+// 	   res.status(201).json(movies)   /*Returns All Movies*/
+//    })
+// 	.catch(function(error){
+// 	   console.error(error);
+// 	   res.status(500).send("Error" + err);
+//    }); 
+// });
+
+app.get("/movies", passport.authenticate('jwt', { session: false }), function(req, res) {
 	Movies.find()
-	.then(function(movies){
-	   res.status(201).json(movies)   /*Returns All Movies*/
-   })
-	.catch(function(error){
-	   console.error(error);
-	   res.status(500).send("Error" + err);
-   }); 
-});
+	  .then(function(movies) {
+		res.status(201).json(movies);
+	  }).catch(function(error) {
+		console.error(error);
+		res.status(500).send("Error: " + error);
+	  });
+  });
 
 // Get the data about a single Movie, by title
 app.get('/movies/:title', (req, res) => {
@@ -216,23 +236,27 @@ app.get('/users/:Username', function(req, res) {
   (required)
   Birthday: Date
 }*/
-app.put('/users/:Username', function(req, res) {
-	Users.findOneAndUpdate({ Username : req.params.Username }, { $set :
-	{
-	  Username : req.body.Username,
-	  Password : req.body.Password,
-	  Email : req.body.Email,
-	  Birthday : req.body.Birthday
-	}},
-	{ new : true }, // This line makes sure that the updated document is returned
-	function(err, updatedUser) {
-	  if(err) {
-		console.error(err);
-		res.status(500).send("Error: " +err);
-	  } else {
-		res.json(updatedUser)
+app.put("/users/:Username", function(req, res) {
+	Users.findOneAndUpdate(
+	  { Username: req.params.Username },
+	  {
+		$set: {
+		  Username: req.body.Username,
+		  Password: req.body.Password,
+		  Email: req.body.Email,
+		  Birthday: req.body.Birthday
+		}
+	  },
+	  { new: true }, // This line makes sure that the updated document is returned
+	  function(err, updatedUser) {
+		if (err) {
+		  console.error(err);
+		  res.status(500).send("Error: " + err);
+		} else {
+		  res.json(updatedUser);
+		}
 	  }
-	})
+	);
   });
 
 
@@ -258,9 +282,9 @@ app.post('/users/:Username/Movies/:MovieID', function(req, res) {
 // 	res.send('Successful delete a favorite movie from user');
 // });
 
-app.delete('/users/:Username/Movies/:MovieID', function(req, res) => {
+app.delete('/users/:Username/Movies/:MovieID', function(req, res) {
 	Users.findOneAndUpdate({ Username : req.params.Username }, {
-	  $pull : { movies : req.params.MovieID }
+	  $pull : { FavoriteMovies : req.params.MovieID }
 	},
 	{ new : true }, // This line makes sure that the updated document is returned
 	function(err, updatedUser) {
