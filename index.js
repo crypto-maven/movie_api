@@ -313,6 +313,6 @@ app.use((err, req, res, next) => {
 	res.status(500).send('Something broke!');
 });
 
-app.listen(9999, () => {
-	console.log('App is listening on port 9999');
+app.listen(8080, () => {
+	console.log('App is listening on port 8080');
 });
