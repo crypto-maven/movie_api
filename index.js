@@ -36,6 +36,12 @@ require('./passport');
 var jwtSecret = "your_jwt_secret"; // This has to be the same key used in the JWTStrategy
 var jwt = require("jsonwebtoken");
 
+// require cors modules
+const cors = require('cors');
+app.use(cors());
+
+/* rest of code goes here*/
+
 // GET requests
 app.get('/', (req, res) => {
 	res.redirect('/index.html');
