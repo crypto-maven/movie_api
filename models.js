@@ -26,13 +26,6 @@ var userSchema = mongoose.Schema({
 // bcrypt
 const bcrypt = require('bcrypt');
 
-var userSchema = mongoose.Schema({
-  Username : {type: String, required: true},
-  Password : {type: String, required: true},
-  Email : {type: String, required: true},
-  Birthday : Date,
-  FavoriteMovies : [{ type : mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
-});
 
 userSchema.statics.hashPassword = function(password) {
   return bcrypt.hashSync(password, 10);
@@ -40,7 +33,7 @@ userSchema.statics.hashPassword = function(password) {
 
 userSchema.methods.validatePassword = function(password) {
   return bcrypt.compareSync(password, this.Password); };
-};
+
 
 
 var Movie = mongoose.model("Movie", movieSchema);
