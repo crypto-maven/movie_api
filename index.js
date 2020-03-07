@@ -169,6 +169,7 @@ app.get('/users', (req, res) => {
  Birthday : Date
 }*/
 app.post('/users', function(req, res) {
+	var hashedPassword = Users.hashPassword(req.body.Password);
 	Users.findOne({ Username : req.body.Username })
 	.then(function(user) {
 	  if (user) {
@@ -177,7 +178,7 @@ app.post('/users', function(req, res) {
 		Users
 		.create({
 		  Username: req.body.Username,
-		  Password: req.body.Password,
+		  Password: hashed.Password,
 		  Email: req.body.Email,
 		  Birthday: req.body.Birthday
 		})
