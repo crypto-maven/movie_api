@@ -171,8 +171,8 @@ app.get('/users', (req, res) => {
  Email : String,
  Birthday : Date
 }*/
-app.post('/users', function(req, res) {
-	// Validation logic here for request
+app.post('/users',
+  // Validation logic here for request
   //you can either use a chain of methods like .not().isEmpty()
   //which means "opposite of isEmpty" in plain english "is not empty"
   //or use .isLength({min: 5}) which means
@@ -188,30 +188,32 @@ app.post('/users', function(req, res) {
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-	var hashedPassword = Users.hashPassword(req.body.Password);
-	Users.findOne({ Username : req.body.Username })
-	.then(function(user) {
-	  if (user) {
-		return res.status(400).send(req.body.Username + "already exists");
-	  } else {
-		Users
-		.create({
-		  Username: req.body.Username,
-		  Password: hashed.Password,
-		  Email: req.body.Email,
-		  Birthday: req.body.Birthday
-		})
-		.then(function(user) {res.status(201).json(user) })
-		.catch(function(error) {
-		  console.error(error);
-		  res.status(500).send("Error: " + error);
-		})
-	  }
-	}).catch(function(error) {
-	  console.error(error);
-	  res.status(500).send("Error: " + error);
-	});
+
+  var hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Username : req.body.Username }) // Search to see if a user with the requested username already exists
+  .then(function(user) {
+    if (user) {
+      //If the user is found, send a response that it already exists
+        return res.status(400).send(req.body.Username + " already exists");
+    } else {
+      Users
+      .create({
+        Username : req.body.Username,
+        Password: hashedPassword,
+        Email : req.body.Email,
+        Birthday : req.body.Birthday
+      })
+      .then(function(user) { res.status(201).json(user) })
+      .catch(function(error) {
+          console.error(error);
+          res.status(500).send("Error: " + error);
+      });
+    }
+  }).catch(function(error) {
+    console.error(error);
+    res.status(500).send("Error: " + error);
   });
+});
 
 // Get all users
 app.get('/users', function(req, res) {
