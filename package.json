@@ -4,6 +4,7 @@
   "description": "movie application",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "successful load"
   },
   "repository": {
