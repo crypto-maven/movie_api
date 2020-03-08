@@ -28,6 +28,9 @@ app.use(bodyParser.json());
 // auth 
 var auth = require('./auth')(app);
 
+// require express validation
+const { check, validationResult } = require('express-validator');
+
 // require passport
 const passport = require('passport');
 require('./passport');
