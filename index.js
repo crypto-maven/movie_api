@@ -58,9 +58,15 @@ app.use(cors({
   }));
 
 // GET requests
-app.get('/', (req, res) => {
-	res.redirect('/index.html');
-});
+// app.get('/', (req, res) => {
+// 	res.redirect('/index.html');
+// });
+
+app.get("/", function(req, res) {
+	var text = "Welcome to MyFlix ";
+	text += "url: " + req.url;
+	res.send(text);
+  });
 
 // start movies scripts
 
