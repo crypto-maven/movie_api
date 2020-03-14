@@ -5,8 +5,11 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+// mongoose local data base connection
+// mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
+// allowing mongoose to connect to online db via mongodb
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // code from previous exercises
 const movies = require('./movies.js');
