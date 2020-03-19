@@ -6,7 +6,7 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 // mongoose local data base connection
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
 // allowing mongoose to connect to online db via mongodb
 // mongoose.connect('mongodb+srv://myFlixDBadmin:B0h2sQvncx@startercluster-piq8s.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
