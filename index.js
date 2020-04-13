@@ -49,7 +49,7 @@ const cors = require('cors');
 app.use(cors());
 
 /* rest of code goes here*/
-var allowedOrigins = ['*'];
+var allowedOrigins = ['http://localhost:1234', 'http://testsite.com'];
 // CORS implementation
 app.use(cors({
 	origin: function(origin, callback){
